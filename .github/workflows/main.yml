@@ -1,4 +1,4 @@
-name: test
+name: build and test
 
 on:
   push:
@@ -25,5 +25,7 @@ jobs:
           node-version: '12'
       - name: Install dependencies
         run: npm install
+      - name: Compile typescript
+        run: npm tsc
       - name: Run unit tests
         run: npm test

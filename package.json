@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "tsc": "tsc -p tsconfig.json",
-    "prepare": "npm run tsc",
+    "prepublishOnly": "npm run tsc",
     "test": "mocha test/**/test*.ts --exit"
   },
   "directories": {

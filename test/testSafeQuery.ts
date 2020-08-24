@@ -243,7 +243,7 @@ describe('SafeQuery', () => {
             },
           })
           .setIndexCheckHandler({
-            warnAction: undefined,
+            warnAction: () => {},
           });
       });
 
@@ -283,7 +283,7 @@ describe('SafeQuery', () => {
             throwMessage: () => 'invalid field',
           })
           .setIndexCheckHandler({
-            throwMessage: undefined,
+            throwMessage: () => '',
           });
       });
 
@@ -333,7 +333,7 @@ describe('SafeQuery', () => {
           .setWarnCondition(() => true)
           .setThrowCondition(() => false)
           .setFieldCheckHandler({
-            warnAction: undefined,
+            warnAction: () => {},
           })
           .setIndexCheckHandler({
             warnAction: () => {
@@ -380,7 +380,7 @@ describe('SafeQuery', () => {
           .setWarnCondition(() => false)
           .setThrowCondition(() => true)
           .setFieldCheckHandler({
-            throwMessage: undefined,
+            throwMessage: () => '',
           })
           .setIndexCheckHandler({
             throwMessage: () => 'insufficient index coverage',

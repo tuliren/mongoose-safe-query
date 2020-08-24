@@ -18,11 +18,8 @@ describe('SafeQuery', () => {
     safeQuery
       .setWarnCondition(DEFAULT_OPTIONS.shouldWarn)
       .setThrowCondition(DEFAULT_OPTIONS.shouldThrow)
-      .setFieldCheckHandler({ warnAction: DEFAULT_OPTIONS.checkField.warnAction })
-      .setIndexCheckHandler({
-        warnAction: DEFAULT_OPTIONS.checkIndex.warnAction,
-        minCoverage: DEFAULT_OPTIONS.checkIndex.minCoverage,
-      });
+      .setFieldCheckHandler(DEFAULT_OPTIONS.checkField)
+      .setIndexCheckHandler(DEFAULT_OPTIONS.checkIndex);
   });
 
   describe('getMetadata', () => {

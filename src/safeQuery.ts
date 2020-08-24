@@ -8,7 +8,6 @@ import {
   InvalidField,
   LowIndexCoverage,
   ModelMetadata,
-  SafeQueryOptions,
   SchemaIndex,
   ViolatingQuery,
 } from './types';
@@ -43,11 +42,11 @@ export class SafeQuery {
   private warnedIndexQueries: Set<string>;
   private options: FullSafeQueryOptions;
 
-  constructor(options: SafeQueryOptions = DEFAULT_OPTIONS) {
+  constructor() {
     this.modelMetadataMap = new Map<string, ModelMetadata>();
     this.warnedFieldQueries = new Set<string>();
     this.warnedIndexQueries = new Set<string>();
-    this.options = Object.assign({}, DEFAULT_OPTIONS, options);
+    this.options = DEFAULT_OPTIONS;
   }
 
   private getMetadata(model: Model<any>): ModelMetadata {

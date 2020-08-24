@@ -75,7 +75,7 @@ export const DEFAULT_OPTIONS: FullSafeQueryOptions = {
     warnAction: defaultFieldWarningHandler,
   },
   checkIndex: {
-    minCoverage: 0.5,
+    minCoverage: 0.25,
     warnAction: defaultIndexWarningHandler,
   },
 };

@@ -52,16 +52,19 @@ When creating a `SafeQuery` instance, you can customize the plugin as follows.
 
 ### Overall
 
-| Option | Type | Default | Definition |
+| Option | Type | Setter | Definition |
 | ---- | ---- | ---- | ---- |
-| `shouldWarn` | `() => boolean` | `() => true` | Whether a warning action should be triggered if there is any violation. |
-| `shouldThrow` | `() => boolean` | `() => false` | Whether an exception should be thrown if there is any violation. |
-| `checkField` | `FieldCheckHandler` | Log a warning message to console. No exception is thrown. | What to do if a query has fields that do not exist in the schema. See [Field Existence Check](#field-existence-check) for details. |
-| `checkIndex` | `IndexCheckHandler` | Log a warning message to console. No exception is thrown. | What to do if a query has insufficient coverage. See [Index Coverage Check](#index-coverage-check) for details. |
+| `shouldWarn` | `() => boolean` | `setWarnCondition` | Whether a warning action should be run if there is any violation. Default to always return `true`. |
+| `shouldThrow` | `() => boolean` | `setThrowCondition` | Whether an exception should be thrown if there is any violation. Default to always return `false`. |
+| `checkField` | `FieldCheckHandler` | `setFieldCheckHandler` | See [Field Existence Check](#field-existence-config). |
+| `checkIndex` | `IndexCheckHandler` | `setIndexCheckHandler` | See [Index Coverage Check](#index-coverage-config). |
 
-- You can call `setWarnCondition` on a `SafeQuery` instance to set `shouldWarn`, and `setThrowCondition` to set `shouldThrow`. For convenience, you can pass in a boolean constant to these setters if no dynamic evaluation is needed.
+- For convenience, you can pass in a boolean constant to `setWarnCondition` and `setThrowCondition` if no dynamic evaluation is needed.
 
-### Field Existence Check
+### Field Existence Config
+
+- This config determines what to do if a query has fields that do not exist in the schema.
+- Setter: `setFieldCheckHandler`.
 
 | Option | Type | Default | Definition |
 | ---- | ---- | ---- | ---- |
@@ -70,19 +73,20 @@ When creating a `SafeQuery` instance, you can customize the plugin as follows.
 
 - The plugin will only run the warning action if `shouldWarn` returns `true` and `warnAction` is defined.
 - Similarly, it will only throw an `InvalidField` error if `shouldThrow` return `true` and `throwMessage` is defined.
-- You can call `setFieldCheckHandler` on a `SafeQuery` instance to set the above options.
 
-### Index Coverage Check
+### Index Coverage Config
+
+- This config determines what to do if a query has insufficient coverage.
+- Setter: `setIndexCheckHandler`.
 
 | Option | Type | Default | Definition |
 | ---- | ---- | ---- | ---- |
-| `minCoverage` | `number` | 0.5 | A floating number representing the percentage of fields that should be covered by an index. |
+| `minCoverage` | `number` | 0.25 | A floating number representing the percentage of fields that should be covered by an index. |
 | `warnAction` | `(query: ViolatingQuery) => void` | Log a warning message to console. | Given a violation query, define the warning action to run. |
 | `throwMessage` | `(query: ViolatingQuery) => string` | `undefined` | Given a violation query, return a message. This message will be wrapped in `LowIndexCoverage` error and thrown. |
 
 - The plugin will only run the warning action if `shouldWarn` returns `true` and `warnAction` is defined.
 - Similarly, it will only throw a `LowIndexCoverage` error if `shouldThrow` return `true` and `throwMessage` is defined.
-- You can call `setIndexCheckHandler` on a `SafeQuery` instance to set the above options.
 
 ### Example
 

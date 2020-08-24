@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/mongoose-safe-query.svg)](https://www.npmjs.com/package/mongoose-safe-query)
 
-A mongoose plugin that verifies the fields in a query so ensure that:
+A mongoose plugin that verifies the fields in a query to ensure that:
 - All fields exist in mongoose schema.
 - The query have sufficient index coverage.
 
@@ -16,33 +16,35 @@ npm install mongoose-safe-query
 
 ## Usage
 
+Apply the plugin to all schemas:
+
 ```ts
 import mongoose from 'mongoose';
 import { SafeQuery } from 'mongoose-safe-query';
 
-// Define mongoose schema
-const schema = new mongoose.Schema({
-  // Schema definition
-});
-
-// Create the plugin
 const safeQuery = new SafeQuery();
 const safeQueryPlugin = safeQuery.getPlugin();
 
-// Register the plugin
-schema.plugin(safeQueryPlugin);
+mongoose.plugin(safeQueryPlugin);
 
-// Create mongoose model
-const model = mongoose.Model('MyModel', schema);
-
-// Run a query
-model.find({ column1: { /* query condition */ } });
-
-// If column1 does not exist, or does not have index coverage,
-// a warning will be logged to console by default 
+// Define schemas afterwards
 ```
 
-Usually you have multiple models. You can create the `safeQuery` instance and `safeQueryPlugin` in a separate file and share it with all the models. See [Notes](#notes) below to details.
+Apply the plugin to specific schemas:
+
+```ts
+import mongoose from 'mongoose';
+import { SafeQuery } from 'mongoose-safe-query';
+
+const safeQuery = new SafeQuery();
+const safeQueryPlugin = safeQuery.getPlugin();
+
+const schema = new mongoose.Schema({ /* schema definition */ });
+
+schema.plugin(safeQueryPlugin);
+```
+
+Usually you have multiple schemas. You can create the `safeQuery` instance and `safeQueryPlugin` in a separate file, and share it with all the schemas. See [Notes](#notes) below to details.
 
 ## Configurations
 
@@ -88,7 +90,7 @@ When creating a `SafeQuery` instance, you can customize the plugin as follows.
 const safeQuery = new SafeQuery()
   // Always warn
   .setWarnCondition(true)
-  // Only thrown in non-production environment
+  // Only throw in non-production environment
   .setThrowCondition(() => process.env.NODE_ENV !== 'production')
   .setFieldCheckHandler({
     warnAction: (query: ViolatingQuery) => {
@@ -115,6 +117,10 @@ const safeQuery = new SafeQuery()
 ## Notes
 - All plugins created from the same `SafeQuery` instance share the configurations. Any update to the configurations will be shared by models whose schemas are configured with the same plugin.
 - For each query with the same fields, the warning action will only be run once. This is because usually you log the violating query in the warning action. This feature prevents the logging framework from being flooded by frequent queries.
+
+## References
+- [Mongoose plugins](https://mongoosejs.com/docs/plugins.html)
+- [Mongoose middleware](https://mongoosejs.com/docs/middleware.html)
 
 ## License
 [ISC](LICENSE.md)

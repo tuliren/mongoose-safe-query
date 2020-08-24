@@ -1,6 +1,5 @@
 import crypto from 'crypto';
 import { FilterQuery, HookNextFunction, Model, Schema } from 'mongoose';
-import _ from 'lodash';
 import {
   DEFAULT_OPTIONS,
   FieldCheckHandler,
@@ -48,7 +47,7 @@ export class SafeQuery {
     this.modelMetadataMap = new Map<string, ModelMetadata>();
     this.warnedFieldQueries = new Set<string>();
     this.warnedIndexQueries = new Set<string>();
-    this.options = _.defaultsDeep({}, options, DEFAULT_OPTIONS);
+    this.options = Object.assign({}, DEFAULT_OPTIONS, options);
   }
 
   private getMetadata(model: Model<any>): ModelMetadata {
@@ -59,10 +58,11 @@ export class SafeQuery {
     }
 
     const schema: Schema = model.schema;
+    const schemaFields: string[] = Object.keys(schema.paths).map(f => f.split('.')[0]);
     const schemaIndexes: SchemaIndex[] = schema.indexes();
     const newMetadata: ModelMetadata = {
       modelName,
-      fields: new Set<string>(Object.keys(_.get(schema, 'tree'))),
+      fields: new Set<string>(schemaFields),
       indices: schemaIndexes.map((a: SchemaIndex) => Object.keys(a[0])).concat([['_id']]),
     };
     this.modelMetadataMap.set(modelName, newMetadata);
@@ -96,12 +96,12 @@ export class SafeQuery {
   }
 
   public setFieldCheckHandler(fieldCheckHandler: Partial<FieldCheckHandler>): this {
-    this.options.checkField = _.defaults(fieldCheckHandler, this.options.checkField);
+    this.options.checkField = Object.assign({}, this.options.checkField, fieldCheckHandler);
     return this;
   }
 
   public setIndexCheckHandler(indexCheckHandler: Partial<IndexCheckHandler>): this {
-    this.options.checkIndex = _.defaults(indexCheckHandler, this.options.checkIndex);
+    this.options.checkIndex = Object.assign({}, this.options.checkIndex, indexCheckHandler);
     return this;
   }
 
@@ -285,7 +285,7 @@ export class SafeQuery {
   }
 
   private static hash(queryFields: string[]): string {
-    const sortedFields = _.sortBy(queryFields);
+    const sortedFields = queryFields.slice().sort();
     return crypto.createHash('sha1').update(sortedFields.join('')).digest('base64');
   }
 }

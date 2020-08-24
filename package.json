@@ -7,7 +7,7 @@
   "scripts": {
     "tsc": "tsc -p tsconfig.json",
     "prepublishOnly": "npm run tsc",
-    "test": "mocha test/**/test*.ts --exit"
+    "test": "mocha test/**/test*.ts"
   },
   "directories": {
     "src": "./src",

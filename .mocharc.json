@@ -2,6 +2,7 @@
   "require": "ts-node/register",
   "package": "./package.json",
   "ui": "bdd",
+  "exit": true,
   "file": [
     "test/setupPlugin.ts",
     "test/setupSchema.ts",

@@ -1,0 +1,29 @@
+name: test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:3.3
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v1.4.3
+        with:
+          node-version: '12'
+      - name: Install dependencies
+        run: npm install
+      - name: Run unit tests
+        run: npm test

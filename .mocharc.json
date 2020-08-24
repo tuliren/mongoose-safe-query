@@ -1,0 +1,8 @@
+{
+  "package": "./package.json",
+  "file": [
+    "test/setupPlugin.ts",
+    "test/setupSchema.ts",
+    "test/setupMongo.ts"
+  ]
+}

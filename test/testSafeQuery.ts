@@ -1,12 +1,11 @@
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
 import { FilterQuery } from 'mongoose';
 import { Project } from './setupSchema';
 import { QUERY_MIDDLEWARES } from '../src/safeQuery';
 import { DEFAULT_OPTIONS, InvalidField, SafeQuery } from '../src';
 import { safeQuery } from './setupPlugin';
-
-import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
+
 chai.use(chaiAsPromised);
 
 // Update methods requires a second argument for the $set operator.
@@ -243,7 +242,8 @@ describe('SafeQuery', () => {
             },
           })
           .setIndexCheckHandler({
-            warnAction: () => {},
+            warnAction: () => {
+            },
           });
       });
 
@@ -333,14 +333,14 @@ describe('SafeQuery', () => {
           .setWarnCondition(() => true)
           .setThrowCondition(() => false)
           .setFieldCheckHandler({
-            warnAction: () => {},
+            warnAction: () => {
+            },
           })
           .setIndexCheckHandler({
             warnAction: () => {
               warningMessages.push('insufficient index coverage');
             },
-          })
-          ;
+          });
       });
 
       QUERY_MIDDLEWARES.forEach(method => {

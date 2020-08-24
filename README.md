@@ -56,8 +56,8 @@ When creating a `SafeQuery` instance, you can customize the plugin as follows.
 | ---- | ---- | ---- | ---- |
 | `shouldWarn` | `() => boolean` | `setWarnCondition` | Whether a warning action should be run if there is any violation. Default to always return `true`. |
 | `shouldThrow` | `() => boolean` | `setThrowCondition` | Whether an exception should be thrown if there is any violation. Default to always return `false`. |
-| `checkField` | `FieldCheckHandler` | `setFieldCheckHandler` | See [Field Existence Check](#field-existence-config). |
-| `checkIndex` | `IndexCheckHandler` | `setIndexCheckHandler` | See [Index Coverage Check](#index-coverage-config). |
+| `checkField` | `FieldCheckHandler` | `setFieldCheckHandler` | See [Field Existence Config](#field-existence-config). |
+| `checkIndex` | `IndexCheckHandler` | `setIndexCheckHandler` | See [Index Coverage Config](#index-coverage-config). |
 
 - For convenience, you can pass in a boolean constant to `setWarnCondition` and `setThrowCondition` if no dynamic evaluation is needed.
 

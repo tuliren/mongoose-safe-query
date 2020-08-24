@@ -30,7 +30,8 @@ describe('SafeQuery', () => {
       // @ts-ignore-next-line
       const metadata = safeQuery.getMetadata(Project);
       expect(metadata.modelName).to.equal('project');
-      expect(Array.from(metadata.fields)).to.include.members(['_id', 'name', 'createdAt']);
+      expect(Array.from(metadata.fields)).to.include
+        .members(['_id', 'name', 'createdAt', 'updatedAt', 'priority', 'active', 'config']);
       expect(metadata.indices).to.include.deep.members([['_id'], ['name'], ['createdAt']]);
     });
   });

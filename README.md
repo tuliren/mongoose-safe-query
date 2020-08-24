@@ -1,6 +1,6 @@
 # Mongoose Safe Query
 
-[![npm version](https://badge.fury.io/js/mongoose-safe-query.svg)](https://www.npmjs.com/package/mongoose-safe-query)
+![build](https://github.com/tuliren/mongoose-safe-query/workflows/build/badge.svg) [![npm version](https://badge.fury.io/js/mongoose-safe-query.svg)](https://www.npmjs.com/package/mongoose-safe-query)
 
 A mongoose plugin that verifies the fields in a query to ensure that:
 - All fields exist in mongoose schema.

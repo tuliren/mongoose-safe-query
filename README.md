@@ -4,7 +4,7 @@
 
 A mongoose plugin that verifies the fields in a query to ensure that:
 - All fields exist in mongoose schema.
-- The query have sufficient index coverage.
+- The query has sufficient index coverage.
 
 When there is any violation, you can configure the plugin to run arbitrary code, or throw a customizable message.
 

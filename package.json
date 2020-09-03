@@ -1,6 +1,6 @@
 {
   "name": "mongoose-safe-query",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A mongoose plugin that verifies the fields in a query",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -22,7 +22,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
       - name: Setup node
-        uses: actions/setup-node@v1.4.3
+        uses: actions/setup-node@v1.4.4
         with:
           node-version: '12'
       - name: Cache dependencies

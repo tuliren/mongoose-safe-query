@@ -34,7 +34,15 @@ jobs:
       - name: Run unit tests
         run: npm test
       - name: Ensure no change
-        run: git diff-index --quiet HEAD
+        run: |
+          echo "Checking for uncommitted changes under $(pwd)"
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Detected changes or untracked files:"
+            git diff --color
+            echo "Untracked files:"
+            git ls-files --others --exclude-standard
+            exit 1
+          fi
       - name: Run Stoat Action
         uses: stoat-dev/stoat-action@v0
         if: always()

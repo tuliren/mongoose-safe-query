@@ -1,0 +1,11 @@
+---
+version: 1
+enabled: true
+plugins:
+  job_runtime:
+    enabled: true
+  static_hosting:
+    test-report:
+      metadata:
+        name: "Test Report"
+      path: test/report

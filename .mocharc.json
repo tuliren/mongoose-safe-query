@@ -7,5 +7,12 @@
     "test/setupPlugin.ts",
     "test/setupSchema.ts",
     "test/setupMongo.ts"
+  ],
+  "reporter": "mochawesome",
+  "reporter-options": [
+    "reportDir=test/report",
+    "reportFilename=index",
+    "json=false",
+    "quiet=false"
   ]
 }
